@@ -10,6 +10,18 @@
 <hr>
 <div class="row">
    <div class="col-md-12">
+      <?php
+      if (isset($_SESSION['alert'])) {
+      ?>
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Sukses!</strong> <?= $_SESSION['alert']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+      <?php
+      }
+      unset($_SESSION['alert']);
+      ?>
       <div class="table-responsive">
          <table class="table table-bordered">
             <thead>
@@ -30,8 +42,45 @@
                      <td><?= $no++ ?></td>
                      <td><?= $plg['nama_pelanggan'] ?></td>
                      <td><?= $plg['no_hp'] ?></td>
-                     <td>Aksi</td>
+                     <td>
+                        <button type="button" class="btn btn-info btn-sm text-white" data-bs-target="#editModal<?= $plg['id_pelanggan'] ?>" data-bs-toggle="modal">
+                           <i class="fas fa-user-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm text-white" data-bs-target="#hapusModal<?= $plg['id_pelanggan'] ?>" data-bs-toggle="modal">
+                           <i class="fas fa-trash"></i>
+                        </button>
+                     </td>
                   </tr>
+
+                  <!-- Modal Edit-->
+                  <div class="modal fade" id="editModal<?= $plg['id_pelanggan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-edit"></i> Edit Data Pelanggan</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                           </div>
+                           <form action="modules/pelanggan/proses_edit.php" method="post">
+                              <input type="hidden" name="id_pelanggan" value="<?= $plg['id_pelanggan'] ?>">
+                              <div class="modal-body px-4">
+                                 <div class="mb-3">
+                                    <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                                    <input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" value="<?= $plg['nama_pelanggan'] ?>" autocomplete="off">
+                                 </div>
+                                 <div class="mb-3">
+                                    <label for="no_hp" class="form-label">Nomor Handphone</label>
+                                    <input type="number" class="form-control" name="no_hp" id="no_hp" value="<?= $plg['no_hp'] ?>" autocomplete="off">
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" name="submit" class="btn btn-sm btn-info text-white">Simpan</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+
                <?php endforeach ?>
             </tbody>
          </table>
@@ -39,22 +88,30 @@
    </div>
 </div>
 
-
-<!-- Modal -->
+<!-- Modal Tambah-->
 <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-plus"></i> Entry Data Pelanggan</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
-         <div class="modal-body">
-            ...
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-         </div>
+         <form action="modules/pelanggan/proses_tambah.php" method="post">
+            <div class="modal-body px-4">
+               <div class="mb-3">
+                  <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                  <input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" placeholder="Masukkan nama pelanggan" autocomplete="off">
+               </div>
+               <div class="mb-3">
+                  <label for="no_hp" class="form-label">Nomor Handphone</label>
+                  <input type="number" class="form-control" name="no_hp" id="no_hp" placeholder="Masukkan nomor handphone" autocomplete="off">
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+               <button type="submit" name="submit" class="btn btn-sm btn-info text-white">Simpan</button>
+            </div>
+         </form>
       </div>
    </div>
 </div>
