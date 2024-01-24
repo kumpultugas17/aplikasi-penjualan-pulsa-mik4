@@ -1,10 +1,12 @@
 <div class="row my-3">
    <div class="col-md-12">
-      <h5><i class="fas fa-user-alt me-1"></i> Data Pelanggan</h5>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-sm btn-info text-white float-end" data-bs-toggle="modal" data-bs-target="#tambahModal">
-         <i class="fas fa-plus"></i> Tambah
-      </button>
+      <h5>
+         <i class="fas fa-user-friends me-1"></i> Data Pelanggan
+         <!-- Button trigger modal -->
+         <button type="button" class="btn btn-sm btn-info text-white float-end" data-bs-toggle="modal" data-bs-target="#tambahModal">
+            <i class="fas fa-plus"></i> Tambah
+         </button>
+      </h5>
    </div>
 </div>
 <hr>
@@ -23,7 +25,7 @@
       unset($_SESSION['alert']);
       ?>
       <div class="table-responsive">
-         <table class="table table-bordered">
+         <table class="table table-bordered" id="data">
             <thead>
                <tr>
                   <th>No</th>
@@ -75,6 +77,28 @@
                               <div class="modal-footer">
                                  <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                                  <button type="submit" name="submit" class="btn btn-sm btn-info text-white">Simpan</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- Modal Hapus-->
+                  <div class="modal fade" id="hapusModal<?= $plg['id_pelanggan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-times"></i> Hapus Data Pelanggan</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                           </div>
+                           <form action="modules/pelanggan/proses_hapus.php" method="post">
+                              <input type="hidden" name="id_pelanggan" value="<?= $plg['id_pelanggan'] ?>">
+                              <div class="modal-body px-4">
+                                 <div class="fs-6">Apakah Pelanggan <strong><?= $plg['nama_pelanggan'] ?></strong> dengan nomor handphone <strong><?= $plg['no_hp'] ?></strong> akan dihapus?</div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" name="submit" class="btn btn-sm btn-danger text-white">Hapus</button>
                               </div>
                            </form>
                         </div>
