@@ -22,6 +22,8 @@ require_once 'config/config.php';
    <link rel="stylesheet" href="assets/plugins/DataTables/datatables.min.css">
    <!-- jQuery -->
    <script src="assets/js/jquery-3.7.0.js"></script>
+   <!-- costum css -->
+   <link rel="stylesheet" href="assets/css/style.css">
    <!-- title -->
    <title>Dashboard - ELTIPONSEL</title>
 </head>

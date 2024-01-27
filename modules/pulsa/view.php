@@ -44,11 +44,11 @@
                   <tr>
                      <td><?= $no++ ?></td>
                      <td><?= $pls['operator'] ?></td>
-                     <td><?= $pls['nominal'] ?></td>
-                     <td><?= $pls['harga'] ?></td>
+                     <td><?= number_format($pls['nominal'], 0, ',', '.') ?></td>
+                     <td>Rp. <?= number_format($pls['harga'], 0, ',', '.') ?></td>
                      <td>
                         <button type="button" class="btn btn-info btn-sm text-white" data-bs-target="#editModal<?= $pls['id_pulsa'] ?>" data-bs-toggle="modal">
-                           <i class="fas fa-user-edit"></i>
+                           <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm text-white" data-bs-target="#hapusModal<?= $pls['id_pulsa'] ?>" data-bs-toggle="modal">
                            <i class="fas fa-trash"></i>
@@ -61,7 +61,7 @@
                      <div class="modal-dialog">
                         <div class="modal-content">
                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-edit"></i> Edit Data Pulsa</h1>
+                              <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Data Pulsa</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                            </div>
                            <form action="modules/pulsa/proses_edit.php" method="post">
