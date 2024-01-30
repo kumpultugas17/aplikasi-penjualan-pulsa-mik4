@@ -45,9 +45,9 @@
                   <tr>
                      <td><?= $no++ ?></td>
                      <td><?= $plg['tanggal'] ?></td>
-                     <td><?= $plg['nama_pelanggan'] ?></td>
-                     <td><?= $plg['operator'] ?></td>
-                     <td><?= $plg['harga'] ?></td>
+                     <td><?= $plg['nama_pelanggan'] . ' - <small class=text-muted>' . $plg['no_hp'] . '</small>' ?></td>
+                     <td><?= $plg['operator'] . ' - <small class=text-muted>' . $plg['nominal'] . '</small>' ?></td>
+                     <td>Rp. <?= number_format($plg['harga'], 0, ',', '.') ?></td>
                      <td>
                         <button type="button" class="btn btn-info btn-sm text-white" data-bs-target="#editModal<?= $plg['id_penjualan'] ?>" data-bs-toggle="modal">
                            <i class="fas fa-user-edit"></i>
@@ -121,18 +121,50 @@
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-plus"></i> Entry Data Pelanggan</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-cart-plus"></i> Entry Data Penjualan</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
-         <form action="modules/pelanggan/proses_tambah.php" method="post">
+         <form action="modules/penjualan/proses_tambah.php" method="post">
             <div class="modal-body px-4">
-               <div class="mb-3">
-                  <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                  <input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" placeholder="Masukkan nama pelanggan" autocomplete="off">
+               <div class="mb-2">
+                  <label for="tanggal" class="form-label">Tanggal</label>
+                  <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?= date('Y-m-d') ?>">
                </div>
-               <div class="mb-3">
-                  <label for="no_hp" class="form-label">Nomor Handphone</label>
-                  <input type="number" class="form-control" name="no_hp" id="no_hp" placeholder="Masukkan nomor handphone" autocomplete="off">
+               <div class="mb-2">
+                  <label for="pelanggan" class="form-label">Nomor Handphone</label>
+                  <select name="pelanggan" id="pelanggan" class="form-select" onchange="get_pelanggan()">
+                     <?php
+                     $no = 1;
+                     $query = $conn->query("SELECT * FROM pelanggan");
+                     foreach ($query as $pelanggan) :
+                     ?>
+                        <option value="<?= $pelanggan['id_pelanggan'] ?>"><?= $pelanggan['no_hp'] ?></option>
+                     <?php endforeach ?>
+                  </select>
+               </div>
+               <div class="mb-2">
+                  <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                  <input type="text" id="nama_pelanggan" class="form-control">
+               </div>
+               <div class="mb-2">
+                  <label for="pulsa" class="form-label">Operator</label>
+                  <select name="pulsa" id="pulsa" class="form-select" onchange="get_pulsa()">
+                     <?php
+                     $no = 1;
+                     $query = $conn->query("SELECT * FROM pulsa");
+                     foreach ($query as $pulsa) :
+                     ?>
+                        <option value="<?= $pulsa['id_pulsa'] ?>"><?= $pulsa['operator'] . ' - ' . $pulsa['nominal'] ?></option>
+                     <?php endforeach ?>
+                  </select>
+               </div>
+               <div class="mb-2">
+                  <label for="harga" class="form-label">Harga</label>
+                  <div class="input-group">
+                     <span class="input-group-text">Rp.</span>
+                     <input type="number" id="harga" class="form-control">
+                  </div>
+
                </div>
             </div>
             <div class="modal-footer">

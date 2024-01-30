@@ -96,6 +96,39 @@ require_once 'config/config.php';
             ]
          })
       });
+
+      // function untuk menampilkan nama pelanggan secara otomatis
+      function get_pelanggan() {
+         let id_pelanggan = $("#pelanggan").val();
+         $.ajax({
+            type: "GET",
+            url: "modules/penjualan/get_pelanggan.php",
+            data: {
+               id_pelanggan: id_pelanggan
+            },
+            dataType: "JSON",
+            success: function(result) {
+               $("#nama_pelanggan").val(result.nama_pelanggan);
+               console.log(result.nama_pelanggan);
+            }
+         })
+      }
+
+      function get_pulsa() {
+         let id_pulsa = $("#pulsa").val();
+         $.ajax({
+            type: "GET",
+            url: "modules/penjualan/get_pulsa.php",
+            data: {
+               id_pulsa: id_pulsa
+            },
+            dataType: "JSON",
+            success: function(result) {
+               $("#harga").val(result.harga);
+               console.log(result.harga)
+            }
+         })
+      }
    </script>
 </body>
 
