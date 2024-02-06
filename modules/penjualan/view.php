@@ -33,7 +33,7 @@
                   <th>Pelanggan</th>
                   <th>Operator</th>
                   <th>Harga</th>
-                  <th>Aksi</th>
+                  <th></th>
                </tr>
             </thead>
             <tbody>
@@ -48,44 +48,12 @@
                      <td><?= $plg['nama_pelanggan'] . ' - <small class=text-muted>' . $plg['no_hp'] . '</small>' ?></td>
                      <td><?= $plg['operator'] . ' - <small class=text-muted>' . $plg['nominal'] . '</small>' ?></td>
                      <td>Rp. <?= number_format($plg['harga'], 0, ',', '.') ?></td>
-                     <td>
-                        <button type="button" class="btn btn-info btn-sm text-white" data-bs-target="#editModal<?= $plg['id_penjualan'] ?>" data-bs-toggle="modal">
-                           <i class="fas fa-user-edit"></i>
-                        </button>
+                     <td class="text-center">
                         <button type="button" class="btn btn-danger btn-sm text-white" data-bs-target="#hapusModal<?= $plg['id_penjualan'] ?>" data-bs-toggle="modal">
                            <i class="fas fa-trash"></i>
                         </button>
                      </td>
                   </tr>
-
-                  <!-- Modal Edit-->
-                  <div class="modal fade" id="editModal<?= $plg['id_penjualan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-user-edit"></i> Edit Data Pelanggan</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                           </div>
-                           <form action="modules/pelanggan/proses_edit.php" method="post">
-                              <input type="hidden" name="id_penjualan" value="<?= $plg['id_penjualan'] ?>">
-                              <div class="modal-body px-4">
-                                 <div class="mb-3">
-                                    <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                                    <input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" value="<?= $plg['nama_pelanggan'] ?>" autocomplete="off">
-                                 </div>
-                                 <div class="mb-3">
-                                    <label for="no_hp" class="form-label">Nomor Handphone</label>
-                                    <input type="number" class="form-control" name="no_hp" id="no_hp" value="<?= $plg['no_hp'] ?>" autocomplete="off">
-                                 </div>
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                                 <button type="submit" name="submit" class="btn btn-sm btn-info text-white">Simpan</button>
-                              </div>
-                           </form>
-                        </div>
-                     </div>
-                  </div>
 
                   <!-- Modal Hapus-->
                   <div class="modal fade" id="hapusModal<?= $plg['id_penjualan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -132,7 +100,7 @@
                </div>
                <div class="mb-2">
                   <label for="pelanggan" class="form-label">Nomor Handphone</label>
-                  <select name="pelanggan" id="pelanggan" class="form-select" onchange="get_pelanggan()">
+                  <select name="pelanggan" id="pelanggan" class="select-box" onchange="get_pelanggan()">
                      <?php
                      $no = 1;
                      $query = $conn->query("SELECT * FROM pelanggan");
@@ -148,7 +116,7 @@
                </div>
                <div class="mb-2">
                   <label for="pulsa" class="form-label">Operator</label>
-                  <select name="pulsa" id="pulsa" class="form-select" onchange="get_pulsa()">
+                  <select name="pulsa" id="pulsa" class="select-box" onchange="get_pulsa()">
                      <?php
                      $no = 1;
                      $query = $conn->query("SELECT * FROM pulsa");
@@ -162,9 +130,8 @@
                   <label for="harga" class="form-label">Harga</label>
                   <div class="input-group">
                      <span class="input-group-text">Rp.</span>
-                     <input type="number" id="harga" class="form-control">
+                     <input type="number" name="harga" id="harga" class="form-control">
                   </div>
-
                </div>
             </div>
             <div class="modal-footer">

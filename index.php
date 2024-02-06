@@ -24,6 +24,8 @@ require_once 'config/config.php';
    <script src="assets/js/jquery-3.7.0.js"></script>
    <!-- costum css -->
    <link rel="stylesheet" href="assets/css/style.css">
+   <!-- selectize css -->
+   <link rel="stylesheet" href="assets/plugins/selectize.js/css/selectize.bootstrap5.css">
    <!-- title -->
    <title>Dashboard - ELTIPONSEL</title>
 </head>
@@ -84,6 +86,8 @@ require_once 'config/config.php';
    <script src="assets/plugins/fontawesome-free-5.5.0-web/js/all.min.js"></script>
    <!-- dataTable js -->
    <script src="assets/plugins/DataTables/datatables.min.js"></script>
+   <!-- selectize js -->
+   <script src="assets/plugins/selectize.js/js/selectize.js"></script>
    <!-- myScript -->
    <script>
       $(document).ready(function() {
@@ -95,6 +99,9 @@ require_once 'config/config.php';
                [5, 10, 20, 'todos']
             ]
          })
+
+         // selectize
+         $('.select-box').selectize();
       });
 
       // function untuk menampilkan nama pelanggan secara otomatis
@@ -109,7 +116,6 @@ require_once 'config/config.php';
             dataType: "JSON",
             success: function(result) {
                $("#nama_pelanggan").val(result.nama_pelanggan);
-               console.log(result.nama_pelanggan);
             }
          })
       }
@@ -125,7 +131,6 @@ require_once 'config/config.php';
             dataType: "JSON",
             success: function(result) {
                $("#harga").val(result.harga);
-               console.log(result.harga)
             }
          })
       }
