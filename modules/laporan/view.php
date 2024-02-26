@@ -53,10 +53,10 @@
                $tgl_awal = $_SESSION['tgl_awal'];
                $tgl_akhir = $_SESSION['tgl_akhir'];
             ?>
-               <a href="modules/laporan/pdf.php?tgl_awal=<?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" class="btn btn-danger bg-gradient float-end">
+               <a target="_blank" href="modules/laporan/pdf.php?tgl_awal=<?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" class="btn btn-outline-danger float-end">
                   <i class="fas fa-file-pdf"></i> Export pdf
                </a>
-               <a href="modules/laporan/xls.php?tgl_awal=<?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" class="btn btn-success bg-gradient float-end me-2">
+               <a target="_blank" href="modules/laporan/xls.php?tgl_awal=<?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" class="btn btn-outline-success bg-gradient float-end me-2">
                   <i class="fas fa-file-excel"></i> Export xls</a>
             <?php
             }
@@ -64,42 +64,48 @@
          </div>
       </form>
 
-
-      <hr class="my-4">
-      <div class="table-responsive">
-         <table class="table table-striped table-bordered" style="width:100%">
-            <thead>
-               <tr>
-                  <th>No.</th>
-                  <th>Tanggal</th>
-                  <th>Nama Pelanggan</th>
-                  <th>No. HP</th>
-                  <th>Operator</th>
-                  <th>Nominal Pulsa</th>
-                  <th>Harga</th>
-               </tr>
-            </thead>
-            <tbody>
-               <?php
-               $no = 1;
-               $query = $conn->query("SELECT * FROM penjualan INNER JOIN pelanggan ON penjualan.pelanggan_id = pelanggan.id_pelanggan INNER JOIN pulsa ON penjualan.pulsa_id = pulsa.id_pulsa WHERE penjualan.tanggal ORDER BY penjualan.tanggal DESC");
-               foreach ($query as $data) :
-               ?>
+      <?php
+      if (isset($_SESSION['tgl_awal'])) {
+      ?>
+         <hr class="my-4">
+         <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%">
+               <thead>
                   <tr>
-                     <td><?= $no++ ?></td>
-                     <td><?= $data['tanggal'] ?></td>
-                     <td><?= $data['nama_pelanggan'] ?></td>
-                     <td><?= $data['no_hp'] ?></td>
-                     <td><?= $data['operator'] ?></td>
-                     <td><?= number_format($data['nominal'], 0, ',', '.') ?></td>
-                     <td>Rp. <?= number_format($data['harga'], 0, ',', '.') ?></td>
+                     <th>No.</th>
+                     <th>Tanggal</th>
+                     <th>Nama Pelanggan</th>
+                     <th>No. HP</th>
+                     <th>Operator</th>
+                     <th>Nominal Pulsa</th>
+                     <th>Harga</th>
                   </tr>
-               <?php
-               endforeach
-               ?>
-            </tbody>
-         </table>
-      </div>
-
+               </thead>
+               <tbody>
+                  <?php
+                  $no = 1;
+                  $query = $conn->query("SELECT * FROM penjualan INNER JOIN pelanggan ON penjualan.pelanggan_id = pelanggan.id_pelanggan INNER JOIN pulsa ON penjualan.pulsa_id = pulsa.id_pulsa WHERE penjualan.tanggal BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY penjualan.tanggal DESC");
+                  foreach ($query as $data) :
+                  ?>
+                     <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $data['tanggal'] ?></td>
+                        <td><?= $data['nama_pelanggan'] ?></td>
+                        <td><?= $data['no_hp'] ?></td>
+                        <td><?= $data['operator'] ?></td>
+                        <td><?= number_format($data['nominal'], 0, ',', '.') ?></td>
+                        <td>Rp. <?= number_format($data['harga'], 0, ',', '.') ?></td>
+                     </tr>
+                  <?php
+                  endforeach
+                  ?>
+               </tbody>
+            </table>
+         </div>
+      <?php
+      }
+      unset($_SESSION['tgl_awal']);
+      unset($_SESSION['tgl_akhir']);
+      ?>
    </div>
 </div>

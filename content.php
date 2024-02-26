@@ -20,6 +20,10 @@ switch ($_GET['module']) {
       include 'modules/laporan/view.php';
       break;
 
+   case 'pengguna':
+      include 'modules/pengguna/view.php';
+      break;
+
    default:
       echo 'Halaman Tidak Ditemukan';
       break;

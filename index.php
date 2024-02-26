@@ -1,6 +1,10 @@
 <?php
 session_start();
 require_once 'config/config.php';
+if (!isset($_SESSION['login'])) {
+   header('location:login.php');
+   exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +30,8 @@ require_once 'config/config.php';
    <link rel="stylesheet" href="assets/css/style.css">
    <!-- selectize css -->
    <link rel="stylesheet" href="assets/plugins/selectize.js/css/selectize.bootstrap5.css">
+   <!-- datepicker css -->
+   <link rel="stylesheet" href="assets/plugins/datepicker/css/datepicker.min.css">
    <!-- title -->
    <title>Dashboard - ELTIPONSEL</title>
 </head>
@@ -61,7 +67,10 @@ require_once 'config/config.php';
                   <a class="nav-link <?= $_GET['module'] == 'laporan' ? 'active' : '' ?>" aria-current="page" href="index.php?module=laporan"> <i class="fas fa-book"></i> Laporan</a>
                </li>
                <li class="nav-item me-1">
-                  <a class="nav-link" aria-current="page" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                  <a class="nav-link <?= $_GET['module'] == 'pengguna' ? 'active' : '' ?>" aria-current="page" href="index.php?module=pengguna"> <i class="fas fa-user"></i> Pengguna</a>
+               </li>
+               <li class="nav-item me-1">
+                  <a class="nav-link" aria-current="page" href="logout.php" onclick="return confirm('Apakah anda ingin keluar aplikasi?')"><i class="fas fa-sign-out-alt"></i> Logout</a>
                </li>
             </ul>
          </div>
@@ -88,6 +97,8 @@ require_once 'config/config.php';
    <script src="assets/plugins/DataTables/datatables.min.js"></script>
    <!-- selectize js -->
    <script src="assets/plugins/selectize.js/js/selectize.js"></script>
+   <!-- datepicker js -->
+   <script src="assets/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
    <!-- myScript -->
    <script>
       $(document).ready(function() {
@@ -102,6 +113,13 @@ require_once 'config/config.php';
 
          // selectize
          $('.select-box').selectize();
+      });
+
+      // datepicker
+      $('.date-picker').datepicker({
+         autoclose: true,
+         todayHighlight: true,
+         format: 'dd M yyyy'
       });
 
       // function untuk menampilkan nama pelanggan secara otomatis

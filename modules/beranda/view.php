@@ -2,7 +2,7 @@
    <div class="col-md-12">
       <div class="alert alert-info py-2">
          <i class="fas fa-info-circle"></i>
-         Selamat Datang di <strong> ELTIPonsel </strong>
+         Selamat Datang <strong><?= $_SESSION['nama'] ?></strong> di Aplikasi Penjualan Pulsa <strong>ELTIPonsel</strong>!
       </div>
    </div>
 </div>
@@ -63,7 +63,7 @@
          </div>
          <div class="card-body">
             <h4 class="card-title">
-
+               Rp. <?= number_format($get_harga, 0, ',', '.') ?>
             </h4>
             <p class="card-text">
                Data Penghasilan
